@@ -1,6 +1,5 @@
 package it.unibs.ing.fp.kruskalxml;
 
-import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Vector;
 
@@ -8,6 +7,9 @@ public class Graph {
 
 	private Vector<Node> nodes = new Vector<>();
 	private PriorityQueue<Edge> edges = new PriorityQueue<>();
+	
+	private Vector<Group_String> gruppi = new Vector<>();
+	private Vector<Edge> path = new Vector<>();
 
 	public boolean addNode(Node node){
 		boolean flag = true;
@@ -23,7 +25,7 @@ public class Graph {
 		return flag;
 	}
 	
-	//prende gli edges dal nodo (TUTTI)
+
 	public boolean addEdge(Edge edge){
 		boolean flag = true;
 		//if(edges.contains(edge));
@@ -38,6 +40,15 @@ public class Graph {
 		return flag;
 	}
 	
+	public Node getNodeById(String id) {
+		Node n = null;
+		for (Node node : nodes) {
+			if(node.getId().equals(id))
+				n = node;
+		}
+		return n;
+	}
+	
 	public void printGraph(){
 		for(Node n: nodes){
 			System.out.print(n + " ");
@@ -47,9 +58,6 @@ public class Graph {
 			System.out.println(e + " ");
 		}
 	}
-	
-	private Vector<Group_String> gruppi=new Vector<>();
-	private Vector<Edge> path=new Vector<>();
 	
 	public void aggiornaGruppi()
 	{
@@ -77,9 +85,6 @@ public class Graph {
 			
 			Edge currentEdge = edges.poll();
 			
-			if(currentEdge.compareTo(currentEdge) == 0)
-				System.out.println("OK");
-			
 			for (int i=0; i<gruppi.size();i++)
 			{
 				
@@ -93,8 +98,7 @@ public class Graph {
 			System.out.println("sto lavorando sul edge: " + currentEdge);
 			if (presente)
 			{
-				System.out.println("� gi� presente quindi non lo inserisco");
-//				edges.remove(0);
+				System.out.println("Gia presente quindi non inserisco");
 			}
 			
 			else
@@ -109,7 +113,6 @@ public class Graph {
 					System.out.println(gruppi.get(i).getSet());
 					
 				}
-//				edges.remove(0);
 			}
 	
 		}		
