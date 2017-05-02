@@ -43,7 +43,7 @@ private Vector<Edge> edges = new Vector<>(); //Priorityueue
 		}
 		System.out.print("\n\n\n\n");
 		for(Edge e: edges){
-			System.out.print(e + " ");
+			System.out.println(e + " ");
 		}
 	}
 	
