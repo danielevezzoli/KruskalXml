@@ -47,6 +47,75 @@ private Vector<Edge> edges = new Vector<>(); //Priorityueue
 		}
 	}
 	
+	private Vector<Group_String> gruppi=new Vector<>();
+	private Vector<Edge> path=new Vector<>();
+	
+	public void aggiornaGruppi()
+	{
+		for (int i=0; i<nodes.size(); i++)
+		{
+			Group_String a = new Group_String();
+			gruppi.add(a);
+			gruppi.get(i).addSet(nodes.get(i).getLabel());
+			
+			System.out.println("indice : "+i);
+			System.out.println(gruppi.get(i).getSet());
+			
+		}
+	}
+	
+	public void Kruskal_String()
+	{
+		
+		aggiornaGruppi();
+		while (edges.size()>0)
+		{
+			int indice1=-1; int indice2=-1;
+			boolean presente=false;
+			for (int i=0; i<gruppi.size();i++)
+			{
+				
+				if (gruppi.get(i).contain2Set(edges.get(0).getStartNode().getLabel(),edges.get(0).getEndNode().getLabel() ))
+					presente=true;
+				if (gruppi.get(i).contain1Set(edges.get(0).getStartNode().getLabel()))
+					indice1=i;
+				if (gruppi.get(i).contain1Set(edges.get(0).getEndNode().getLabel()))
+					indice2=i;
+			}
+			System.out.println("sto lavorando sul edge: "+edges.get(0));
+			if (presente)
+			{
+				System.out.println("è già presente quindi non lo inserisco");
+				edges.remove(0);
+			}
+			
+			else
+			{
+				System.out.println("non presente quindi lo inserisco");
+				path.add(edges.get(0));
+				gruppi.get(indice2).addSet(gruppi.get(indice1).getSet());
+				gruppi.remove(indice1);
+				for (int i=0; i<gruppi.size(); i++)
+				{
+					System.out.println("indice : "+i);
+					System.out.println(gruppi.get(i).getSet());
+					
+				}
+				edges.remove(0);
+			}
+	
+		}		
+		System.out.println("path ottimale:");
+		for (int i=0; i<path.size(); i++)
+		{
+			System.out.println(path.get(i));
+			
+		}
+
+		
+	}
+	
+	
 	public String toString(){
 		return "";
 	}
