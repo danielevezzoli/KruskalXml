@@ -1,12 +1,13 @@
 package it.unibs.ing.fp.kruskalxml;
 
+import java.util.Collections;
 import java.util.PriorityQueue;
 import java.util.Vector;
 
 public class Graph {
 
 	private Vector<Node> nodes = new Vector<>();
-private Vector<Edge> edges = new Vector<>(); //Priorityueue
+	private PriorityQueue<Edge> edges = new PriorityQueue<>();
 
 	public boolean addNode(Node node){
 		boolean flag = true;
@@ -68,31 +69,38 @@ private Vector<Edge> edges = new Vector<>(); //Priorityueue
 	{
 		
 		aggiornaGruppi();
+
 		while (edges.size()>0)
 		{
 			int indice1=-1; int indice2=-1;
 			boolean presente=false;
+			
+			Edge currentEdge = edges.poll();
+			
+			if(currentEdge.compareTo(currentEdge) == 0)
+				System.out.println("OK");
+			
 			for (int i=0; i<gruppi.size();i++)
 			{
 				
-				if (gruppi.get(i).contain2Set(edges.get(0).getStartNode().getLabel(),edges.get(0).getEndNode().getLabel() ))
+				if (gruppi.get(i).contain2Set(currentEdge.getStartNode().getLabel(), currentEdge.getEndNode().getLabel() ))
 					presente=true;
-				if (gruppi.get(i).contain1Set(edges.get(0).getStartNode().getLabel()))
+				if (gruppi.get(i).contain1Set(currentEdge.getStartNode().getLabel()))
 					indice1=i;
-				if (gruppi.get(i).contain1Set(edges.get(0).getEndNode().getLabel()))
+				if (gruppi.get(i).contain1Set(currentEdge.getEndNode().getLabel()))
 					indice2=i;
 			}
-			System.out.println("sto lavorando sul edge: "+edges.get(0));
+			System.out.println("sto lavorando sul edge: " + currentEdge);
 			if (presente)
 			{
-				System.out.println("è già presente quindi non lo inserisco");
-				edges.remove(0);
+				System.out.println("ï¿½ giï¿½ presente quindi non lo inserisco");
+//				edges.remove(0);
 			}
 			
 			else
 			{
 				System.out.println("non presente quindi lo inserisco");
-				path.add(edges.get(0));
+				path.add(currentEdge);
 				gruppi.get(indice2).addSet(gruppi.get(indice1).getSet());
 				gruppi.remove(indice1);
 				for (int i=0; i<gruppi.size(); i++)
@@ -101,7 +109,7 @@ private Vector<Edge> edges = new Vector<>(); //Priorityueue
 					System.out.println(gruppi.get(i).getSet());
 					
 				}
-				edges.remove(0);
+//				edges.remove(0);
 			}
 	
 		}		

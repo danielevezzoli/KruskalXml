@@ -1,6 +1,6 @@
 package it.unibs.ing.fp.kruskalxml;
 
-public class Edge {
+public class Edge implements Comparable<Edge>{
 	private Node startNode;
 	private Node endNode;
 	private int weight;
@@ -36,5 +36,10 @@ public class Edge {
 
 	public Node getEndNode() {
 		return endNode;
+	}
+
+	@Override
+	public int compareTo(Edge e1) {
+		return Integer.compare(this.getWeight(), e1.getWeight());
 	}
 }

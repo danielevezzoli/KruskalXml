@@ -1,5 +1,7 @@
 package it.unibs.ing.fp.kruskalxml;
 
+import java.util.Collections;
+
 public class MainKruskal {
 
 	public static void main(String[] args) {
@@ -41,16 +43,15 @@ public class MainKruskal {
 		g.addEdge(new Edge(c,b,5));
 		g.addEdge(new Edge(e,c,6));
 		g.addEdge(new Edge(e,d,7));
-		
+
 		g.printGraph();
-		
 			
-			StringBuffer set= new StringBuffer("afebdgdffe");
-			String ritorno=set.toString();
-			String contien="e";
-			if (ritorno.contains(contien))
-				System.out.println("contine");
-				
+//			StringBuffer set= new StringBuffer("afebdgdffe");
+//			String ritorno=set.toString();
+//			String contien="e";
+//			if (ritorno.contains(contien))
+//				System.out.println("contine");
+//				
 		
 	g.Kruskal_String();
 
