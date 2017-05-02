@@ -36,7 +36,7 @@ public class Group_String {
 	 */
 	public boolean contain1Set (CharSequence a)
 	{
-		boolean flag=true;
+		boolean flag=false;
 		String ritorno=set.toString();
 		if (ritorno.contains(a))
 			flag=true;
@@ -52,7 +52,7 @@ public class Group_String {
 	 */
 	public boolean contain2Set (CharSequence a, CharSequence b)
 	{
-		boolean flag=true;
+		boolean flag=false;
 		
 		if (contain1Set(a) && contain1Set(b))
 			flag=true;
