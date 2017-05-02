@@ -19,12 +19,11 @@ public class MainKruskal {
 		d.setLabel("d");
 		e.setLabel("e");
 		e.setEnd(true);
-
-		b.addEdge(new Edge(b,a,3));
-		c.addEdge(new Edge(c,b,5));
-		d.addEdge(new Edge(d,c,2));
 		e.addEdge(new Edge(e,a,1));
+		d.addEdge(new Edge(d,c,2));
+		b.addEdge(new Edge(b,a,3));
 		e.addEdge(new Edge(e,b,4));
+		c.addEdge(new Edge(c,b,5));
 		e.addEdge(new Edge(e,c,6));
 		e.addEdge(new Edge(e,d,7));
 
@@ -35,15 +34,25 @@ public class MainKruskal {
 		g.addNode(e);
 
 
-		g.addEdge(new Edge(b,a,3));
-		g.addEdge(new Edge(c,b,5));
-		g.addEdge(new Edge(d,c,2));
 		g.addEdge(new Edge(e,a,1));
+		g.addEdge(new Edge(d,c,2));
+		g.addEdge(new Edge(b,a,3));
 		g.addEdge(new Edge(e,b,4));
+		g.addEdge(new Edge(c,b,5));
 		g.addEdge(new Edge(e,c,6));
 		g.addEdge(new Edge(e,d,7));
 		
 		g.printGraph();
+		
+			
+			StringBuffer set= new StringBuffer("afebdgdffe");
+			String ritorno=set.toString();
+			String contien="e";
+			if (ritorno.contains(contien))
+				System.out.println("contine");
+				
+		
+	g.Kruskal_String();
 
 	}
 
