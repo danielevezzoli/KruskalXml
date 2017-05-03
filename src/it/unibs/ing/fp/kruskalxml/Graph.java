@@ -77,13 +77,14 @@ public class Graph {
 	{
 		
 		aggiornaGruppi();
+		PriorityQueue<Edge> tmp = edges;
 
 		while (edges.size()>0)
 		{
 			int indice1=-1; int indice2=-1;
 			boolean presente=false;
 			
-			Edge currentEdge = edges.poll();
+			Edge currentEdge = tmp.poll();
 			
 			for (int i=0; i<gruppi.size();i++)
 			{
