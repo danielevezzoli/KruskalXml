@@ -10,12 +10,12 @@
   </meta>
   <tree>
     <node>
-      <label>F</label>
+      <label>A</label>
     </node>
     <node start="true">
       <label>B</label>
       <edges>
-        <edge weight="3">F</edge>
+        <edge weight="3">A</edge>
       </edges>
     </node>
     <node>
@@ -33,7 +33,7 @@
     <node end="true">
       <label>E</label>
       <edges>
-        <edge weight="1">F</edge>
+        <edge weight="1">A</edge>
         <edge weight="4">B</edge>
         <edge weight="6">C</edge>
         <edge weight="7">D</edge>
