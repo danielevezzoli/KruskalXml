@@ -9,16 +9,16 @@
     <desc>https://en.wikipedia.org/wiki/Kruskal%27s_algorithm</desc>
   </meta>
   <tree>
-    <node>
+    <node start="true">
       <label>A</label>
     </node>
-    <node start="true">
+    <node>
       <label>B</label>
       <edges>
         <edge weight="3">A</edge>
       </edges>
     </node>
-    <node>
+    <node  end="true">
       <label>C</label>
       <edges>
         <edge weight="5">B</edge>
@@ -30,7 +30,7 @@
         <edge weight="2">C</edge>
       </edges>
     </node>
-    <node end="true">
+    <node >
       <label>E</label>
       <edges>
         <edge weight="1">A</edge>
