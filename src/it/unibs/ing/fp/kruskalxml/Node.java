@@ -3,11 +3,40 @@ package it.unibs.ing.fp.kruskalxml;
 import java.util.Vector;
 
 public class Node {
+	private int distance;
+	private Node previousNode;
 	private String id;
 	private String label;
 	private boolean start=false, end=false;
+	
+	public boolean getStart() {
+		return start;
+	}
+
+	public boolean getEnd() {
+		return end;
+	}
+
 	private Vector<Edge> links = new Vector<>();
 	
+	
+	
+	public int getDistance() {
+		return distance;
+	}
+
+	public void setDistance(int distance) {
+		this.distance = distance;
+	}
+
+	public Node getPreviousNode() {
+		return previousNode;
+	}
+
+	public void setPreviousNode(Node previousNode) {
+		this.previousNode = previousNode;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -42,7 +71,7 @@ public class Node {
 	}
 	
 	public String toString(){
-		StringBuffer str = new StringBuffer("\nNodo: " + label);
+		StringBuffer str = new StringBuffer("\nNodo: " + " " + label + " " +distance);
 		for(Edge e: links){
 			str.append("\n" + e);
 		}
