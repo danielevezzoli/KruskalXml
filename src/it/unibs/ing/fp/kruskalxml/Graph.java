@@ -51,7 +51,7 @@ public class Graph {
 	
 	public void printGraph(){
 		for(Node n: nodes){
-			System.out.print(n + " ");
+			System.out.print(n);
 		}
 		System.out.print("\n\n\n\n");
 		for(Edge e: edges){

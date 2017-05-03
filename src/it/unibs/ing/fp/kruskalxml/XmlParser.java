@@ -47,16 +47,11 @@ public class XmlParser {
 							break;
 						case "node":
 							tmp = new Node();
-							if("start".equals(reader.getAttributeName(0))) {
-								if("true".equals(reader.getAttributeValue(0))) {
-									tmp.setStart(true);
-								}
-							}
-							if("end".equals(reader.getAttributeName(0))) {
-								if("true".equals(reader.getAttributeValue(0))) {
-									tmp.setEnd(true);
-								}
-							}
+							boolean start = Boolean.parseBoolean(reader.getAttributeValue(null, "start"));
+							boolean	end = Boolean.parseBoolean(reader.getAttributeValue(null, "end"));
+							tmp.setStart(start);
+							tmp.setEnd(end);
+							
 							break;
 						case "edges":
 							break;
