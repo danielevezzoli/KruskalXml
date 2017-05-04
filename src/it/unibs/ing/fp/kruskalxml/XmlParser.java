@@ -72,6 +72,7 @@ public class XmlParser {
 					if ("weight".equals(reader.getAttributeName(0).toString())) {
 						weight = reader.getAttributeValue(0).toString().trim();
 					}
+					break;
 				}
 				break;
 

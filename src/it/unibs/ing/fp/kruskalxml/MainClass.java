@@ -9,6 +9,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		//la famo static?
 		XmlParser xp = new XmlParser();
+		XmlWriter xw = new XmlWriter();
 		Graph graph = new Graph();
 
 		try {
@@ -19,8 +20,15 @@ public class MainClass {
 
 		graph.printGraph();
 
-		KruskalAlgorithm.startAlgorithm(graph);
+		
 		DijkstraAlgorithm.startAlgorithm(graph);
+		
+		try {
+			xw.saveKruskal("kruskal.xml", KruskalAlgorithm.startAlgorithm(graph));
+		} catch (XMLStreamException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
