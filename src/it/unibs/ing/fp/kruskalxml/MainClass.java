@@ -4,10 +4,10 @@ import java.io.FileNotFoundException;
 
 import javax.xml.stream.XMLStreamException;
 
-public class MainKruskal {
+public class MainClass {
 
 	public static void main(String[] args) {
-
+		//la famo static?
 		XmlParser xp = new XmlParser();
 		Graph graph = new Graph();
 
@@ -18,9 +18,9 @@ public class MainKruskal {
 		}
 
 		graph.printGraph();
+
 		KruskalAlgorithm.startAlgorithm(graph);
 		DijkstraAlgorithm.startAlgorithm(graph);
-		graph.printGraph();
 
 	}
 

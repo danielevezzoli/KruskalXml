@@ -2,11 +2,11 @@ package it.unibs.ing.fp.kruskalxml;
 
 public class GroupString {
 
-	// StringBuffer che conterr� i set del gruppo corrispondente
+	// StringBuffer che conterrà i set del gruppo corrispondente
 	StringBuffer set = new StringBuffer();
 
-	/*
-	 * Aggiunge un set (un carattere solo o anche pi� caratteri)
+	/**
+	 * Aggiunge un set (un carattere solo o anche più caratteri)
 	 * 
 	 * @author Stefano Poma
 	 * 
@@ -17,7 +17,7 @@ public class GroupString {
 		set.append(str);
 	}
 
-	/*
+	/**
 	 * Ritorna il set
 	 * 
 	 * @author
@@ -28,7 +28,7 @@ public class GroupString {
 		return set.toString();
 	}
 
-	/*
+	/**
 	 * controlla se nello StringBuffer � presente uno specifico set (uno o pi�
 	 * caratteri)
 	 * 
@@ -47,7 +47,7 @@ public class GroupString {
 		return flag;
 	}
 
-	/*
+	/**
 	 * controlla se 2 set sono contenuti entrambi nello StringBuffer
 	 * 
 	 * @author

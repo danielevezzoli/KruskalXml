@@ -4,6 +4,7 @@ import java.util.Vector;
 
 public class Node {
 	private int distance;
+	// Collegamento al nodo precedente nel percorso minimo individuato dall'algoritmo di Dijkstra.
 	private Node previousNode;
 	private String id;
 	private String label;
@@ -68,7 +69,7 @@ public class Node {
 
 	@Override
 	public String toString() {
-		StringBuffer str = new StringBuffer("\nNodo: " + " " + label + " " + distance);
+		StringBuffer str = new StringBuffer("\nNodo: " + " " + label + " ");
 		for (Edge e : links) {
 			str.append("\n" + e);
 		}

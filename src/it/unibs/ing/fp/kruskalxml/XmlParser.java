@@ -13,10 +13,19 @@ public class XmlParser {
 
 	File filename;
 
+	/**
+	 * Metodo per l'acquisizione di un grafo da XML
+	 * 
+	 * @param filename
+	 * @return il grafo
+	 * @throws FileNotFoundException
+	 * @throws XMLStreamException
+	 */
 	public Graph parseXml(String filename) throws FileNotFoundException, XMLStreamException {
 
 		Graph graph = null;
 
+		// Apre il file e controlla se esiste nella directory
 		try {
 			this.filename = new File(filename);
 		} catch (Exception e) {
@@ -24,11 +33,13 @@ public class XmlParser {
 			return null;
 		}
 
+		// Inizializzo le variabili
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLStreamReader reader = factory.createXMLStreamReader(new FileInputStream(this.filename));
 		Node tmp = null;
-		String data = "", weight = "";
+		String label = "", weight = "";
 
+		// Ciclo di lettura file (finchè c'è da leggere)
 		while (reader.hasNext()) {
 			switch (reader.next()) {
 			case XMLStreamConstants.START_DOCUMENT:
@@ -38,11 +49,16 @@ public class XmlParser {
 			case XMLStreamConstants.START_ELEMENT:
 				switch (reader.getLocalName()) {
 				case "tree":
+					// Se trovo il tag <tree> creo il grafo
 					graph = new Graph();
 					System.out.println("Inizio a leggere l'albero");
 					break;
 				case "node":
+					// Se trovo il tag <node>, creo il nodo e imposto i
+					// parametri start e end
 					tmp = new Node();
+					// Se nell'attributo start/end trovo il valore "true" allora
+					// i parametri diventano true altrimenti false.
 					boolean start = Boolean.parseBoolean(reader.getAttributeValue(null, "start"));
 					boolean end = Boolean.parseBoolean(reader.getAttributeValue(null, "end"));
 					tmp.setStart(start);
@@ -52,34 +68,40 @@ public class XmlParser {
 				case "edges":
 					break;
 				case "edge":
+					// leggo il peso
 					if ("weight".equals(reader.getAttributeName(0).toString())) {
 						weight = reader.getAttributeValue(0).toString().trim();
 					}
 				}
 				break;
 
+			// Leggo i valori tra i tag di apertura e chiusura
 			case XMLStreamConstants.CHARACTERS:
 				if (reader.getTextLength() > 0) {
-					data = reader.getText().trim();
+					label = reader.getText().trim();
 				}
 				break;
 
+			// I tag di chiusura
 			case XMLStreamConstants.END_ELEMENT:
 				switch (reader.getLocalName()) {
 				case "tree":
 					System.out.println("Ho finito di leggere il documento");
 					break;
 				case "node":
+					// Aggiungo il nodo al grafo
 					graph.addNode(tmp);
 					tmp = null;
 					break;
 				case "label":
-					tmp.setId(data);
-					tmp.setLabel(data);
+					tmp.setId(label);
+					tmp.setLabel(label);
 					break;
 				case "edge":
-					// tmp.addLinkedNode(getNodeByID(data), weight);
-					graph.addEdge(new Edge(tmp, graph.getNodeById(data), Integer.parseInt(weight)));
+					// Aggiungo un edge al grafo e al nodo collegato
+					Edge e = new Edge(tmp, graph.getNodeById(label), Integer.parseInt(weight));
+					tmp.addEdge(e);
+					graph.addEdge(e);
 					break;
 				}
 				break;

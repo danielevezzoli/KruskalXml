@@ -11,9 +11,7 @@ public class Edge implements Comparable<Edge> {
 		weight = _weight;
 	}
 
-	public int getWeight() {
-		return weight;
-	}
+
 
 	// TODO mettere in ordine alfabetico per controolare più facilmente
 	public boolean equals(Edge edge) {
@@ -41,7 +39,14 @@ public class Edge implements Comparable<Edge> {
 	public Node getEndNode() {
 		return endNode;
 	}
+	
+	public int getWeight() {
+		return weight;
+	}
 
+	/**
+	 * Metodo per ordinare gli edge in base al peso
+	 */
 	@Override
 	public int compareTo(Edge e1) {
 		return Integer.compare(this.getWeight(), e1.getWeight());

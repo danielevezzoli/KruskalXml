@@ -7,7 +7,12 @@ public class Graph {
 
 	private Vector<Node> nodes = new Vector<>();
 	private PriorityQueue<Edge> edges = new PriorityQueue<>();
-
+	
+	/**
+	 * Aggiunge un nodo al Vector nodes se il nodo non è già presente
+	 * @param node
+	 * @return
+	 */
 	public boolean addNode(Node node) {
 		boolean flag = true;
 		// if(edges.contains(edge));
@@ -38,7 +43,11 @@ public class Graph {
 		}
 		return flag;
 	}
-
+	/**
+	 * Restituisce il nodo contrassegnato da id
+	 * @param id
+	 * @return il nodo trovato
+	 */
 	public Node getNodeById(String id) {
 		Node n = null;
 		for (Node node : nodes) {
@@ -48,6 +57,9 @@ public class Graph {
 		return n;
 	}
 
+	/**
+	 * Stampa il grafo
+	 */
 	public void printGraph() {
 		for (Node n : nodes) {
 			System.out.print(n);
@@ -58,8 +70,5 @@ public class Graph {
 		}
 	}
 
-	@Override
-	public String toString() {
-		return "";
-	}
+
 }

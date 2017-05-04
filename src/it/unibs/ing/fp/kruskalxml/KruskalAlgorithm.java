@@ -4,45 +4,50 @@ import java.util.PriorityQueue;
 import java.util.Vector;
 
 public class KruskalAlgorithm {
-
-	private static void aggiornaGruppi(Vector<Node> nodes, Vector<GroupString> gruppi) {
+	
+	/**
+	 * Inizializza i gruppi mettendo in ogni gruppo un nodo
+	 * Es. gruppo0 -> A; gruppo1 -> B
+	 * @param nodes Tutti i nodi del grafo
+	 * @param groups I gruppi da inizializzare
+	 */
+	private static void initGroups(Vector<Node> nodes, Vector<GroupString> groups) {
 		for (int i = 0; i < nodes.size(); i++) {
 			GroupString a = new GroupString();
-			gruppi.add(a);
-			gruppi.get(i).addSet(nodes.get(i).getLabel());
+			groups.add(a);
+			groups.get(i).addSet(nodes.get(i).getLabel());
 
-			System.out.println("indice : " + i);
-			System.out.println(gruppi.get(i).getSet());
+			System.out.println("Indice : " + i);
+			System.out.println(groups.get(i).getSet());
 
 		}
 	}
+	
 
 	public static Vector<Edge> startAlgorithm(Graph graph) {
 
 		Vector<Node> nodes = new Vector<>(graph.getNodes());
 		PriorityQueue<Edge> edges = new PriorityQueue<>(graph.getEdges());
-		Vector<GroupString> gruppi = new Vector<>();
+		Vector<GroupString> groups = new Vector<>();
 
 		Vector<Edge> path = new Vector<>();
 
-		aggiornaGruppi(nodes, gruppi);
-		PriorityQueue<Edge> tmp = edges;
+		initGroups(nodes, groups);
 
 		while (edges.size() > 0) {
 			int indice1 = -1;
 			int indice2 = -1;
 			boolean presente = false;
 
-			Edge currentEdge = tmp.poll();
+			Edge currentEdge = edges.poll();
 
-			for (int i = 0; i < gruppi.size(); i++) {
-
-				if (gruppi.get(i).contain2Set(currentEdge.getStartNode().getLabel(),
-						currentEdge.getEndNode().getLabel()))
+			for (int i = 0; i < groups.size(); i++) {
+				//Trovo i gruppi dove si trovano il nodo di partenza ed il nodo di arrivo dell'edge
+				if (groups.get(i).contain2Set(currentEdge.getStartNode().getLabel(), currentEdge.getEndNode().getLabel()))
 					presente = true;
-				if (gruppi.get(i).contain1Set(currentEdge.getStartNode().getLabel()))
+				if (groups.get(i).contain1Set(currentEdge.getStartNode().getLabel()))
 					indice1 = i;
-				if (gruppi.get(i).contain1Set(currentEdge.getEndNode().getLabel()))
+				if (groups.get(i).contain1Set(currentEdge.getEndNode().getLabel()))
 					indice2 = i;
 			}
 			System.out.println("sto lavorando sul edge: " + currentEdge);
@@ -53,11 +58,12 @@ public class KruskalAlgorithm {
 			else {
 				System.out.println("non presente quindi lo inserisco");
 				path.add(currentEdge);
-				gruppi.get(indice2).addSet(gruppi.get(indice1).getSet());
-				gruppi.remove(indice1);
-				for (int i = 0; i < gruppi.size(); i++) {
+				//Unisco i due gruppi
+				groups.get(indice2).addSet(groups.get(indice1).getSet());
+				groups.remove(indice1);
+				for (int i = 0; i < groups.size(); i++) {
 					System.out.println("indice : " + i);
-					System.out.println(gruppi.get(i).getSet());
+					System.out.println(groups.get(i).getSet());
 
 				}
 			}

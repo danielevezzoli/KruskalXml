@@ -8,15 +8,13 @@ public class DijkstraAlgorithm {
 	private static Vector<Node> settledNodes = new Vector<>();
 	private static Vector<Node> unSettledNodes = new Vector<>();
 	private static Node endNode = new Node();
-
 	private static Vector<String> path = new Vector<>();
 
-	private static void updateArray(Vector<Node> nodes) {
+	private static void initArray(Vector<Node> nodes) {
 		for (Node n : nodes) {
 			if (n.getStart()) {
 				n.setDistance(0);
 				settledNodes.add(n);
-
 			}
 
 			else {
@@ -37,23 +35,24 @@ public class DijkstraAlgorithm {
 
 	private static void updateNearNodes(PriorityQueue<Edge> edges) {
 		for (Edge e : edges) {
-			if (e.getStartNode().equals(settledNodes.get(settledNodes.size() - 1)))
-				updateNode(e.getEndNode(), settledNodes.get(settledNodes.size() - 1), e.getWeight());
-			if (e.getEndNode().equals(settledNodes.get(settledNodes.size() - 1)))
-				updateNode(e.getStartNode(), settledNodes.get(settledNodes.size() - 1), e.getWeight());
+			if (e.getStartNode().equals(settledNodes.lastElement()))
+				updateNode(e.getEndNode(), settledNodes.lastElement(), e.getWeight());
+			if (e.getEndNode().equals(settledNodes.lastElement()))
+				updateNode(e.getStartNode(), settledNodes.lastElement(), e.getWeight());
 		}
 	}
 
-	private static void updateNode(Node e, Node a, int weight) {
-		if (unSettledNodes.contains(e))
-			System.out.println("nodo di partenza: " + a.getLabel() + " nodo arrivo: " + e.getLabel() + " peso: "
-					+ weight + " distanza " + e.getDistance());
-		if (e.getDistance() > (a.getDistance() + weight)) {
-			e.setDistance((a.getDistance() + weight));
-			e.setPreviousNode(a);
-			System.out.println("previous node: " + e.getPreviousNode());
-			System.out.println("nuova distanza: " + e.getDistance());
+	private static void updateNode(Node arriveNode, Node actualNode, int weight) {
+		if (unSettledNodes.contains(arriveNode)) {
+			System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo arrivo: " + arriveNode.getLabel()
+					+ " peso: " + weight + " distanza " + arriveNode.getDistance());
+			if (arriveNode.getDistance() > (actualNode.getDistance() + weight)) {
+				arriveNode.setDistance((actualNode.getDistance() + weight));
+				arriveNode.setPreviousNode(actualNode);
+				System.out.println("previous node: " + arriveNode.getPreviousNode());
+				System.out.println("nuova distanza: " + arriveNode.getDistance());
 
+			}
 		}
 	}
 
@@ -69,12 +68,12 @@ public class DijkstraAlgorithm {
 	}
 
 	private static void createPath() {
-		Node endnodo = endNode;
-		while (!endnodo.getStart()) {
-			path.add(endnodo.getLabel());
-			endnodo = endnodo.getPreviousNode();
+		Node pathNode = endNode;
+		while (!pathNode.getStart()) {
+			path.add(pathNode.getLabel());
+			pathNode = pathNode.getPreviousNode();
 		}
-		path.add(endnodo.getLabel());
+		path.add(pathNode.getLabel());
 	}
 
 	private static void printPath() {
@@ -83,8 +82,8 @@ public class DijkstraAlgorithm {
 		}
 	}
 
-	public static void startAlgorithm(Graph graph) {
-		updateArray(graph.getNodes());
+	public static Vector<String> startAlgorithm(Graph graph) {
+		initArray(graph.getNodes());
 		while (unSettledNodes.size() > 0) {
 			updateNearNodes(graph.getEdges());
 			settledNodes.add(takeNextNode());
@@ -97,6 +96,7 @@ public class DijkstraAlgorithm {
 		}
 		createPath();
 		printPath();
+		return path;
 
 	}
 }
