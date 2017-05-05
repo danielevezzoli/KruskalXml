@@ -13,6 +13,12 @@ public class Node {
 	private Vector<Edge> links = new Vector<>();
 	private Vector<Node> linkedNodes = new Vector<>();
 	
+	public Node(String label) {
+		this.label = label;
+	}
+	
+	public Node() {}
+	
 	public Vector<Node> getLinkedNodes() {
 		return linkedNodes;
 	}

@@ -49,6 +49,10 @@ public class Graph {
 		return flag;
 	}
 
+	public void setNodes(Vector<Node> nodes) {
+		this.nodes = nodes;
+	}
+
 	/**
 	 * Restituisce il nodo contrassegnato da id
 	 * 
@@ -69,7 +73,7 @@ public class Graph {
 	 */
 	public void printGraph() {
 		for (Node n : nodes) {
-			System.out.print(n);
+			System.out.println(n);
 		}
 		System.out.print("\n\n\n\n");
 		for (Edge e : edges) {

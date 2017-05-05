@@ -13,20 +13,20 @@ public class MainClass {
 		Graph graph = new Graph();
 
 		try {
-			graph = xp.parseXml("input.xml");
+			graph = xp.parseXml("input2.xml");
 		} catch (FileNotFoundException | XMLStreamException e) {
 			e.printStackTrace();
 		}
-
+		
 		graph.printGraph();
 
-		try {
-			xw.saveKruskal("kruskal.xml", KruskalAlgorithm.startAlgorithm(graph));
-		} catch (XMLStreamException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+//		try {
+//			xw.saveKruskal("kruskal.xml", KruskalAlgorithm.startAlgorithm(graph));
+//		} catch (XMLStreamException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
 		try {
 			xw.saveDijkstra("dijkstra.xml", DijkstraAlgorithm.startAlgorithm(graph));
 		} catch (XMLStreamException e) {
