@@ -32,7 +32,7 @@ public class DijkstraAlgorithm {
 		for (Node n : unSettledNodes)
 			System.out.println("unsettleNodes:" + n);
 	}
-
+/*
 	private static void updateNearNodes(PriorityQueue<Edge> edges) {
 		for (Edge e : edges) {
 			if (e.getStartNode().equals(settledNodes.lastElement()))
@@ -52,6 +52,25 @@ public class DijkstraAlgorithm {
 				System.out.println("previous node: " + arriveNode.getPreviousNode());
 				System.out.println("nuova distanza: " + arriveNode.getDistance());
 
+			}
+		}
+	}*/
+	
+	private static void updateNearNodes(Node actualNode){
+			for(Edge e: actualNode.getEdges()){
+				for(Node nearNode: actualNode.getLinkedNodes()){
+					System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo arrivo: " + nearNode.getLabel()
+					+ " peso: " + e.getWeight() + " distanza " + nearNode.getDistance());
+					if(e.getStartNode().equals(nearNode) || e.getEndNode().equals(nearNode)){
+						if(unSettledNodes.contains(nearNode)){
+							if((actualNode.getDistance() + e.getWeight()) < nearNode.getDistance()){
+								nearNode.setDistance((actualNode.getDistance() + e.getWeight()));
+								nearNode.setPreviousNode(actualNode);
+								System.out.println("previous node: " + nearNode.getPreviousNode());
+								System.out.println("nuova distanza: " + nearNode.getDistance());
+						}
+					}
+				}
 			}
 		}
 	}
@@ -77,22 +96,29 @@ public class DijkstraAlgorithm {
 	}
 
 	private static void printPath() {
+		System.out.println("Il path ottimale è:\n");
 		for (int i = (path.size() - 1); i >= 0; i--) {
 			System.out.println(path.get(i));
 		}
+
+		System.out.println("\n");
 	}
 
 	public static Vector<String> startAlgorithm(Graph graph) {
 		initArray(graph.getNodes());
-		while (unSettledNodes.size() > 0) {
-			updateNearNodes(graph.getEdges());
+		boolean fine = false;
+		while ((unSettledNodes.size() > 0) && (!fine)) {
+			//updateNearNodes(graph.getEdges());
+			updateNearNodes(settledNodes.lastElement());
 			settledNodes.add(takeNextNode());
 			for (Node n : settledNodes)
 				System.out.println("SettledNodes " + n.getLabel() + "\n");
 			unSettledNodes.remove(takeNextNode());
 			for (Node n : unSettledNodes)
 				System.out.println("unSettledNodes " + n.getLabel() + "\n");
-
+			if(endNode.equals(settledNodes.lastElement())) {
+				fine = true;
+			}
 		}
 		createPath();
 		printPath();

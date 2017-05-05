@@ -101,7 +101,7 @@ public class XmlParser {
 				case "edge":
 					// Aggiungo un edge al grafo e al nodo collegato
 					Edge e = new Edge(tmp, graph.getNodeById(label), Integer.parseInt(weight));
-					tmp.addEdge(e);
+					//tmp.addEdge(e);
 					graph.addEdge(e);
 					break;
 				}

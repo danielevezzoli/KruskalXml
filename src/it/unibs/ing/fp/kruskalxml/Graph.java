@@ -7,9 +7,10 @@ public class Graph {
 
 	private Vector<Node> nodes = new Vector<>();
 	private PriorityQueue<Edge> edges = new PriorityQueue<>();
-	
+
 	/**
 	 * Aggiunge un nodo al Vector nodes se il nodo non è già presente
+	 * 
 	 * @param node
 	 * @return
 	 */
@@ -38,13 +39,19 @@ public class Graph {
 	public boolean addEdge(Edge edge) {
 		boolean flag = false;
 		if (!edges.contains(edge)) {
+			edge.getStartNode().setLinkedNodes(edge.getEndNode());
+			edge.getEndNode().setLinkedNodes(edge.getStartNode());
+			edge.getStartNode().addEdge(edge);
+			edge.getEndNode().addEdge(edge);
 			edges.add(edge);
 			flag = true;
 		}
 		return flag;
 	}
+
 	/**
 	 * Restituisce il nodo contrassegnato da id
+	 * 
 	 * @param id
 	 * @return il nodo trovato
 	 */
@@ -69,6 +76,5 @@ public class Graph {
 			System.out.println(e + " ");
 		}
 	}
-
 
 }

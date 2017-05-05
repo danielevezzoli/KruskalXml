@@ -4,12 +4,22 @@ import java.util.Vector;
 
 public class Node {
 	private int distance;
+
 	// Collegamento al nodo precedente nel percorso minimo individuato dall'algoritmo di Dijkstra.
 	private Node previousNode;
 	private String id;
 	private String label;
 	private boolean start = false, end = false;
 	private Vector<Edge> links = new Vector<>();
+	private Vector<Node> linkedNodes = new Vector<>();
+	
+	public Vector<Node> getLinkedNodes() {
+		return linkedNodes;
+	}
+
+	public void setLinkedNodes(Node _linkedNode) {
+		this.linkedNodes.add(_linkedNode);
+	}
 
 	public boolean getStart() {
 		return start;
@@ -72,6 +82,9 @@ public class Node {
 		StringBuffer str = new StringBuffer("\nNodo: " + " " + label + " ");
 		for (Edge e : links) {
 			str.append("\n" + e);
+		}
+		for (Node n: linkedNodes) {
+			str.append("\n" + n.getLabel());
 		}
 		return str.toString();
 	}
