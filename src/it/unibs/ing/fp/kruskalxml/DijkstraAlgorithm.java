@@ -1,6 +1,5 @@
 package it.unibs.ing.fp.kruskalxml;
 
-import java.util.PriorityQueue;
 import java.util.Vector;
 
 public class DijkstraAlgorithm {
@@ -93,10 +92,18 @@ public class DijkstraAlgorithm {
 			pathNode = pathNode.getPreviousNode();
 		}
 		path.add(pathNode.getLabel());
+		
+		Vector<String> tmp = new Vector<>();
+		
+		for(int i=(path.size()-1); i>=0; i--) {
+			tmp.add(path.get(i));
+		}
+		
+		path = tmp;
 	}
 
 	private static void printPath() {
-		System.out.println("Il path ottimale è:\n");
+		System.out.println("Il path ottimale ï¿½:\n");
 		for (int i = (path.size() - 1); i >= 0; i--) {
 			System.out.println(path.get(i));
 		}
