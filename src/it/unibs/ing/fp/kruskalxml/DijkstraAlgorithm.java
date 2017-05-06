@@ -42,12 +42,6 @@ public class DijkstraAlgorithm {
 				unSettledNodes.add(n);
 			}
 		}
-
-		for (Node n : settledNodes)
-			System.out.println("settleNodes:" + n);
-
-		for (Node n : unSettledNodes)
-			System.out.println("unsettleNodes:" + n);
 	}
 
 	/**
@@ -81,14 +75,9 @@ public class DijkstraAlgorithm {
 	 */
 	private static void updateNode(Node arriveNode, Node actualNode, int weight) {
 		if (unSettledNodes.contains(arriveNode)) {
-			System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo arrivo: " + arriveNode.getLabel()
-					+ " peso: " + weight + " distanza " + arriveNode.getDistance());
 			if (arriveNode.getDistance() > (actualNode.getDistance() + weight)) {
 				arriveNode.setDistance((actualNode.getDistance() + weight));
 				arriveNode.setPreviousNode(actualNode);
-				System.out.println("previous node: " + arriveNode.getPreviousNode());
-				System.out.println("nuova distanza: " + arriveNode.getDistance());
-
 			}
 		}
 	}
@@ -107,7 +96,6 @@ public class DijkstraAlgorithm {
 			if (nextNode == null || nextNode.getDistance() > n.getDistance())
 				nextNode = n;
 		}
-		System.out.println("nodo con distanza minima: " + nextNode.getLabel());
 		return nextNode;
 	}
 
@@ -141,7 +129,7 @@ public class DijkstraAlgorithm {
 	 * @author Matteo Zanolla
 	 */
 	private static void printPath() {
-		System.out.println("Il path ottimale �:\n");
+		System.out.println("Il path ottimale è:\n");
 		for (int i = (path.size() - 1); i >= 0; i--) {
 			System.out.println(path.get(i));
 		}
@@ -163,11 +151,7 @@ public class DijkstraAlgorithm {
 		while ((unSettledNodes.size() > 0) && (!fine)) {
 			updateNearNodes(graph.getEdges());
 			settledNodes.add(takeNextNode());
-			for (Node n : settledNodes)
-				System.out.println("SettledNodes " + n.getLabel() + "\n");
 			unSettledNodes.remove(takeNextNode());
-			for (Node n : unSettledNodes)
-				System.out.println("unSettledNodes " + n.getLabel() + "\n");
 			if (endNode.equals(settledNodes.lastElement())) {
 				fine = true;
 			}

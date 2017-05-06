@@ -45,7 +45,7 @@ public class XmlParser {
 		try {
 			this.filename = new File(filename);
 		} catch (Exception e) {
-			System.out.println("Il file " + filename + " non è disponibile o non è presente nella directory");
+			System.err.println("Il file " + filename + " non è disponibile o non è presente nella directory");
 			return null;
 		}
 
@@ -132,7 +132,6 @@ public class XmlParser {
 				break;
 
 			case XMLStreamConstants.END_DOCUMENT:
-				System.out.println("Ho finito di leggere il documento");
 				break;
 
 			}
@@ -161,7 +160,7 @@ public class XmlParser {
 		try {
 			this.filename = new File(filename);
 		} catch (Exception e) {
-			System.out.println("Il file " + filename + " non è disponibile o non è presente nella directory");
+			System.err.println("Il file " + filename + " non è disponibile o non è presente nella directory");
 			return null;
 		}
 
@@ -215,7 +214,6 @@ public class XmlParser {
 					break;
 				}
 			case XMLStreamConstants.END_DOCUMENT:
-				System.out.println("Ho finito di leggere il documento");
 				break;
 
 			}

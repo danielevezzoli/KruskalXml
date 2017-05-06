@@ -30,8 +30,8 @@ public class KruskalAlgorithm {
 			groups.add(a);
 			groups.get(i).addSet(nodes.get(i).getLabel());
 
-			System.out.println("Indice : " + i);
-			System.out.println(groups.get(i).getSet());
+			// System.out.println("Indice : " + i);
+			// System.out.println(groups.get(i).getSet());
 
 		}
 	}
@@ -75,26 +75,16 @@ public class KruskalAlgorithm {
 				if (groups.get(i).contain1Set(currentEdge.getEndNode().getLabel()))
 					indice2 = i;
 			}
-			System.out.println("sto lavorando sul edge: " + currentEdge);
-			if (presente) {
-				System.out.println("Gia presente quindi non inserisco");
-			}
 
-			else {
-				System.out.println("non presente quindi lo inserisco");
+			if (!presente) {
 				path.add(currentEdge);
 				// Unisco i due gruppi
 				groups.get(indice2).addSet(groups.get(indice1).getSet());
 				groups.remove(indice1);
-				for (int i = 0; i < groups.size(); i++) {
-					System.out.println("indice : " + i);
-					System.out.println(groups.get(i).getSet());
-
-				}
 			}
 
 		}
-		System.out.println("path ottimale:");
+		System.out.println("Minimum Spanning Tree:");
 		for (int i = 0; i < path.size(); i++) {
 			System.out.println(path.get(i));
 
