@@ -1,6 +1,5 @@
 package it.unibs.ing.fp.kruskalxml;
 
-import java.util.PriorityQueue;
 import java.util.Vector;
 
 /**
@@ -38,10 +37,17 @@ public class DijkstraAlgorithm {
 			else {
 				if (n.getEnd())
 					endNode = n;
-				n.setDistance(Integer.MAX_VALUE);
+				// n.setDistance(99);
+				n.setDistance(Integer.MAX_VALUE); // 2^32 > 99 lol
 				unSettledNodes.add(n);
 			}
 		}
+
+		for (Node n : settledNodes)
+			System.out.println("settleNodes:" + n);
+
+		for (Node n : unSettledNodes)
+			System.out.println("unsettleNodes:" + n);
 	}
 
 	/**
@@ -49,35 +55,24 @@ public class DijkstraAlgorithm {
 	 * 
 	 * @author Stefano Poma
 	 * @author Matteo Zanolla
-	 * @param edges
-	 *            Il vector di edges da scorrere
+	 * @param Node
+	 *            Il nodo attuale
 	 */
-	private static void updateNearNodes(PriorityQueue<Edge> edges) {
-		for (Edge e : edges) {
-			if (e.getStartNode().equals(settledNodes.lastElement()))
-				updateNode(e.getEndNode(), settledNodes.lastElement(), e.getWeight());
-			if (e.getEndNode().equals(settledNodes.lastElement()))
-				updateNode(e.getStartNode(), settledNodes.lastElement(), e.getWeight());
-		}
-	}
-
-	/**
-	 * Metodo per aggiornare la distanza di un nodo
-	 * 
-	 * @author Stefano Poma
-	 * @author Matteo Zanolla
-	 * @param arriveNode
-	 *            Il nodo di arrivo
-	 * @param actualNode
-	 *            il nodo di partenza
-	 * @param weight
-	 *            Il peso dell'edge
-	 */
-	private static void updateNode(Node arriveNode, Node actualNode, int weight) {
-		if (unSettledNodes.contains(arriveNode)) {
-			if (arriveNode.getDistance() > (actualNode.getDistance() + weight)) {
-				arriveNode.setDistance((actualNode.getDistance() + weight));
-				arriveNode.setPreviousNode(actualNode);
+	private static void updateNearNodes(Node actualNode) {
+		for (Edge e : actualNode.getEdges()) {
+			for (Node nearNode : actualNode.getLinkedNodes()) {
+				System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo arrivo: " + nearNode.getLabel()
+						+ " peso: " + e.getWeight() + " distanza " + nearNode.getDistance());
+				if (e.getStartNode().equals(nearNode) || e.getEndNode().equals(nearNode)) {
+					if (unSettledNodes.contains(nearNode)) {
+						if ((actualNode.getDistance() + e.getWeight()) < nearNode.getDistance()) {
+							nearNode.setDistance((actualNode.getDistance() + e.getWeight()));
+							nearNode.setPreviousNode(actualNode);
+							System.out.println("previous node: " + nearNode.getPreviousNode());
+							System.out.println("nuova distanza: " + nearNode.getDistance());
+						}
+					}
+				}
 			}
 		}
 	}
@@ -96,6 +91,7 @@ public class DijkstraAlgorithm {
 			if (nextNode == null || nextNode.getDistance() > n.getDistance())
 				nextNode = n;
 		}
+		System.out.println("nodo con distanza minima: " + nextNode.getLabel());
 		return nextNode;
 	}
 
@@ -129,7 +125,7 @@ public class DijkstraAlgorithm {
 	 * @author Matteo Zanolla
 	 */
 	private static void printPath() {
-		System.out.println("Il path ottimale è:\n");
+		System.out.println("Il path ottimale �:\n");
 		for (int i = (path.size() - 1); i >= 0; i--) {
 			System.out.println(path.get(i));
 		}
@@ -149,9 +145,14 @@ public class DijkstraAlgorithm {
 		initArray(graph.getNodes());
 		boolean fine = false;
 		while ((unSettledNodes.size() > 0) && (!fine)) {
-			updateNearNodes(graph.getEdges());
+			// updateNearNodes(graph.getEdges());
+			updateNearNodes(settledNodes.lastElement());
 			settledNodes.add(takeNextNode());
+			for (Node n : settledNodes)
+				System.out.println("SettledNodes " + n.getLabel() + "\n");
 			unSettledNodes.remove(takeNextNode());
+			for (Node n : unSettledNodes)
+				System.out.println("unSettledNodes " + n.getLabel() + "\n");
 			if (endNode.equals(settledNodes.lastElement())) {
 				fine = true;
 			}
