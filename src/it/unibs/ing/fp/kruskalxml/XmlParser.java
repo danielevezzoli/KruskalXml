@@ -99,13 +99,22 @@ public class XmlParser {
 					tmp = null;
 					break;
 				case "label":
+					for(Node graph_param: graph.getNodes()){
+						if(graph_param.getLabel().equals(label)){
+							tmp = graph_param;
+						}
+					}
 					tmp.setId(label);
 					tmp.setLabel(label);
 					break;
 				case "edge":
+					Node nodeById = graph.getNodeById(label); 
+					if(nodeById == null){
+						nodeById = new Node(label);
+					}
 					// Aggiungo un edge al grafo e al nodo collegato
-					Edge e = new Edge(tmp, graph.getNodeById(label), Integer.parseInt(weight));
-					tmp.addEdge(e);
+					Edge e = new Edge(tmp, nodeById, Integer.parseInt(weight));
+					//tmp.addEdge(e);
 					graph.addEdge(e);
 					break;
 				}
