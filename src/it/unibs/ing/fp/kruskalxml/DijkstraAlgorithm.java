@@ -8,6 +8,7 @@ import java.util.Vector;
  * 
  * @author Stefano Poma
  * @author Matteo Zanolla
+ * @author Daniele Vezzoli
  *
  */
 public class DijkstraAlgorithm {
@@ -17,6 +18,16 @@ public class DijkstraAlgorithm {
 	private static Node endNode = new Node();
 	private static Vector<String> path = new Vector<>();
 
+	/**
+	 * Metodo per inizializzare i nodi. All'inizio pongo il nodo iniziale a
+	 * distanza = 0 Tutti gli altri nodi li pongo a distanza "infinito"
+	 *
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 * 
+	 * @param nodes
+	 *            Il Vector di Node da inizializzare
+	 */
 	private static void initArray(Vector<Node> nodes) {
 		for (Node n : nodes) {
 			if (n.getStart()) {
@@ -27,7 +38,7 @@ public class DijkstraAlgorithm {
 			else {
 				if (n.getEnd())
 					endNode = n;
-				n.setDistance(Integer.MAX_VALUE); // 2^32 > 99 lol
+				n.setDistance(Integer.MAX_VALUE);
 				unSettledNodes.add(n);
 			}
 		}
@@ -39,6 +50,14 @@ public class DijkstraAlgorithm {
 			System.out.println("unsettleNodes:" + n);
 	}
 
+	/**
+	 * Metodo per aggiornare i nodi
+	 * 
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 * @param edges
+	 *            Il vector di edges da scorrere
+	 */
 	private static void updateNearNodes(PriorityQueue<Edge> edges) {
 		for (Edge e : edges) {
 			if (e.getStartNode().equals(settledNodes.lastElement()))
@@ -48,6 +67,18 @@ public class DijkstraAlgorithm {
 		}
 	}
 
+	/**
+	 * Metodo per aggiornare la distanza di un nodo
+	 * 
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 * @param arriveNode
+	 *            Il nodo di arrivo
+	 * @param actualNode
+	 *            il nodo di partenza
+	 * @param weight
+	 *            Il peso dell'edge
+	 */
 	private static void updateNode(Node arriveNode, Node actualNode, int weight) {
 		if (unSettledNodes.contains(arriveNode)) {
 			System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo arrivo: " + arriveNode.getLabel()
@@ -62,26 +93,13 @@ public class DijkstraAlgorithm {
 		}
 	}
 
-	// private static void updateNearNodes(Node actualNode){
-	// for(Edge e: actualNode.getEdges()){
-	// for(Node nearNode: actualNode.getLinkedNodes()){
-	// System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo
-	// arrivo: " + nearNode.getLabel()
-	// + " peso: " + e.getWeight() + " distanza " + nearNode.getDistance());
-	// if(e.getStartNode().equals(nearNode) || e.getEndNode().equals(nearNode)){
-	// if(unSettledNodes.contains(nearNode)){
-	// if((actualNode.getDistance() + e.getWeight()) < nearNode.getDistance()){
-	// nearNode.setDistance((actualNode.getDistance() + e.getWeight()));
-	// nearNode.setPreviousNode(actualNode);
-	// System.out.println("previous node: " + nearNode.getPreviousNode());
-	// System.out.println("nuova distanza: " + nearNode.getDistance());
-	// }
-	// }
-	// }
-	// }
-	// }
-	// }
-
+	/**
+	 * Metodo per decidere il nodo da considerare successivamente
+	 * 
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 * @return Il nodo scelto
+	 */
 	private static Node takeNextNode() {
 		Node nextNode = null;
 		for (Node n : unSettledNodes) {
@@ -93,6 +111,12 @@ public class DijkstraAlgorithm {
 		return nextNode;
 	}
 
+	/**
+	 * Metodo che crea il path finale
+	 * 
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 */
 	private static void createPath() {
 		Node pathNode = endNode;
 		while (!pathNode.getStart()) {
@@ -110,6 +134,12 @@ public class DijkstraAlgorithm {
 		path = tmp;
 	}
 
+	/**
+	 * Metodo che stampa il path finale
+	 * 
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 */
 	private static void printPath() {
 		System.out.println("Il path ottimale �:\n");
 		for (int i = (path.size() - 1); i >= 0; i--) {
@@ -118,6 +148,14 @@ public class DijkstraAlgorithm {
 
 		System.out.println("\n");
 	}
+
+	/**
+	 * Metodo che esegue l'algoritmo di Dijkstra
+	 * 
+	 * @param graph
+	 *            Il grafo su cui eseguire l'algoritmo
+	 * @return Un vector contenente le label del path finale
+	 */
 
 	public static Vector<String> startAlgorithm(Graph graph) {
 		initArray(graph.getNodes());
