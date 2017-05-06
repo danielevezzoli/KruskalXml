@@ -1,5 +1,13 @@
 package it.unibs.ing.fp.kruskalxml;
 
+/**
+ * Classe struttura dati di tipo GroupString. Il nostro algoritmo di Kruskal
+ * utilizza questa struttura dati per controllare se, aggiungendo un nodo al MST
+ * si forma un ciclo.
+ * 
+ * @author Stefano Poma
+ *
+ */
 public class GroupString {
 
 	// StringBuffer che conterrà i set del gruppo corrispondente
@@ -10,7 +18,8 @@ public class GroupString {
 	 * 
 	 * @author Stefano Poma
 	 * 
-	 * @param stringa che contine i set (i label dei singoli nodi)
+	 * @param str
+	 *            Stringa che contiene i set (i label dei singoli nodi)
 	 * 
 	 */
 	public void addSet(String str) {
@@ -20,21 +29,22 @@ public class GroupString {
 	/**
 	 * Ritorna il set
 	 * 
-	 * @author
+	 * @author Stefano Poma
 	 * 
-	 * @return stringa che contiene il set
+	 * @return Stringa che contiene il set
 	 */
 	public String getSet() {
 		return set.toString();
 	}
 
 	/**
-	 * controlla se nello StringBuffer � presente uno specifico set (uno o pi�
-	 * caratteri)
+	 * Controlla se nello StringBuffer set è presente uno specifico set (uno o
+	 * più caratteri)
 	 * 
-	 * @author
+	 * @author Stefano Poma
 	 * 
-	 * @param una CharSequence che contiene il set da confrontare
+	 * @param a
+	 *            Una CharSequence che contiene il set da confrontare
 	 * 
 	 * @return vero se lo contiene, falso altrimenti
 	 */
@@ -48,13 +58,16 @@ public class GroupString {
 	}
 
 	/**
-	 * controlla se 2 set sono contenuti entrambi nello StringBuffer
+	 * Controlla se 2 set sono contenuti entrambi nello StringBuffer
 	 * 
-	 * @author
+	 * @author Stefano Poma
 	 * 
-	 * @param 2 CharSequence
+	 * @param a
+	 *            Set da controllare
+	 * @param b
+	 *            Set da controllare
 	 * 
-	 * @return vero se li contiene, falso altrimenti
+	 * @return Vero se li contiene, falso altrimenti
 	 */
 	public boolean contain2Set(CharSequence a, CharSequence b) {
 		boolean flag = false;

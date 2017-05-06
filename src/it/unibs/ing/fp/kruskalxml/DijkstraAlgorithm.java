@@ -1,7 +1,15 @@
 package it.unibs.ing.fp.kruskalxml;
 
+import java.util.PriorityQueue;
 import java.util.Vector;
 
+/**
+ * Classe statica per l'esecuzione dell'algoritmo di Dijsktra
+ * 
+ * @author Stefano Poma
+ * @author Matteo Zanolla
+ *
+ */
 public class DijkstraAlgorithm {
 
 	private static Vector<Node> settledNodes = new Vector<>();
@@ -19,7 +27,6 @@ public class DijkstraAlgorithm {
 			else {
 				if (n.getEnd())
 					endNode = n;
-				// n.setDistance(99);
 				n.setDistance(Integer.MAX_VALUE); // 2^32 > 99 lol
 				unSettledNodes.add(n);
 			}
@@ -31,7 +38,7 @@ public class DijkstraAlgorithm {
 		for (Node n : unSettledNodes)
 			System.out.println("unsettleNodes:" + n);
 	}
-/*
+
 	private static void updateNearNodes(PriorityQueue<Edge> edges) {
 		for (Edge e : edges) {
 			if (e.getStartNode().equals(settledNodes.lastElement()))
@@ -53,26 +60,27 @@ public class DijkstraAlgorithm {
 
 			}
 		}
-	}*/
-	
-	private static void updateNearNodes(Node actualNode){
-			for(Edge e: actualNode.getEdges()){
-				for(Node nearNode: actualNode.getLinkedNodes()){
-					System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo arrivo: " + nearNode.getLabel()
-					+ " peso: " + e.getWeight() + " distanza " + nearNode.getDistance());
-					if(e.getStartNode().equals(nearNode) || e.getEndNode().equals(nearNode)){
-						if(unSettledNodes.contains(nearNode)){
-							if((actualNode.getDistance() + e.getWeight()) < nearNode.getDistance()){
-								nearNode.setDistance((actualNode.getDistance() + e.getWeight()));
-								nearNode.setPreviousNode(actualNode);
-								System.out.println("previous node: " + nearNode.getPreviousNode());
-								System.out.println("nuova distanza: " + nearNode.getDistance());
-						}
-					}
-				}
-			}
-		}
 	}
+
+	// private static void updateNearNodes(Node actualNode){
+	// for(Edge e: actualNode.getEdges()){
+	// for(Node nearNode: actualNode.getLinkedNodes()){
+	// System.out.println("nodo di partenza: " + actualNode.getLabel() + " nodo
+	// arrivo: " + nearNode.getLabel()
+	// + " peso: " + e.getWeight() + " distanza " + nearNode.getDistance());
+	// if(e.getStartNode().equals(nearNode) || e.getEndNode().equals(nearNode)){
+	// if(unSettledNodes.contains(nearNode)){
+	// if((actualNode.getDistance() + e.getWeight()) < nearNode.getDistance()){
+	// nearNode.setDistance((actualNode.getDistance() + e.getWeight()));
+	// nearNode.setPreviousNode(actualNode);
+	// System.out.println("previous node: " + nearNode.getPreviousNode());
+	// System.out.println("nuova distanza: " + nearNode.getDistance());
+	// }
+	// }
+	// }
+	// }
+	// }
+	// }
 
 	private static Node takeNextNode() {
 		Node nextNode = null;
@@ -92,13 +100,13 @@ public class DijkstraAlgorithm {
 			pathNode = pathNode.getPreviousNode();
 		}
 		path.add(pathNode.getLabel());
-		
+
 		Vector<String> tmp = new Vector<>();
-		
-		for(int i=(path.size()-1); i>=0; i--) {
+
+		for (int i = (path.size() - 1); i >= 0; i--) {
 			tmp.add(path.get(i));
 		}
-		
+
 		path = tmp;
 	}
 
@@ -115,15 +123,14 @@ public class DijkstraAlgorithm {
 		initArray(graph.getNodes());
 		boolean fine = false;
 		while ((unSettledNodes.size() > 0) && (!fine)) {
-			//updateNearNodes(graph.getEdges());
-			updateNearNodes(settledNodes.lastElement());
+			updateNearNodes(graph.getEdges());
 			settledNodes.add(takeNextNode());
 			for (Node n : settledNodes)
 				System.out.println("SettledNodes " + n.getLabel() + "\n");
 			unSettledNodes.remove(takeNextNode());
 			for (Node n : unSettledNodes)
 				System.out.println("unSettledNodes " + n.getLabel() + "\n");
-			if(endNode.equals(settledNodes.lastElement())) {
+			if (endNode.equals(settledNodes.lastElement())) {
 				fine = true;
 			}
 		}

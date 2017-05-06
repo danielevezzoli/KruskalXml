@@ -10,6 +10,13 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
+/**
+ * Classe per l'acquisizione di un grafo da file XML
+ * 
+ * @author RAD
+ * @author Daniele Vezzoli
+ *
+ */
 public class XmlParser {
 
 	File filename;
@@ -18,13 +25,17 @@ public class XmlParser {
 	/**
 	 * Metodo per l'acquisizione di un grafo da XML
 	 * 
+	 * @author RAD
+	 * @author Daniele Vezzoli
+	 * 
 	 * @param filename
+	 *            Il nome del file da importare
 	 * @return il grafo
 	 * @throws FileNotFoundException
 	 * @throws XMLStreamException
 	 */
 	public Graph parseXml(String filename) throws FileNotFoundException, XMLStreamException {
-		
+
 		nodes = parseXmlNodes(filename);
 
 		Graph graph = new Graph();
@@ -99,8 +110,8 @@ public class XmlParser {
 					tmp = null;
 					break;
 				case "label":
-					for(Node graph_param: graph.getNodes()){
-						if(graph_param.getLabel().equals(label)){
+					for (Node graph_param : graph.getNodes()) {
+						if (graph_param.getLabel().equals(label)) {
 							tmp = graph_param;
 						}
 					}
@@ -108,13 +119,13 @@ public class XmlParser {
 					tmp.setLabel(label);
 					break;
 				case "edge":
-					Node nodeById = graph.getNodeById(label); 
-					if(nodeById == null){
+					Node nodeById = graph.getNodeById(label);
+					if (nodeById == null) {
 						nodeById = new Node(label);
 					}
 					// Aggiungo un edge al grafo e al nodo collegato
 					Edge e = new Edge(tmp, nodeById, Integer.parseInt(weight));
-					//tmp.addEdge(e);
+					// tmp.addEdge(e);
 					graph.addEdge(e);
 					break;
 				}
@@ -130,6 +141,20 @@ public class XmlParser {
 		return graph;
 	}
 
+	/**
+	 * Metodo per l'acquisizione di tutti i nodi. Il metodo acquisice solamente
+	 * i nodi del grafo e li ritorna come tipo Vector
+	 * 
+	 * @author Daniele Vezzoli
+	 * 
+	 *         Questo metodo è necessario nel caso in cui nel file, vengono
+	 *         utilizzati nodi non ancora definiti.
+	 * @param filename
+	 *            Il nome del file da importare
+	 * @return Un Vector di Node
+	 * @throws FileNotFoundException
+	 * @throws XMLStreamException
+	 */
 	public Vector<Node> parseXmlNodes(String filename) throws FileNotFoundException, XMLStreamException {
 
 		// Apre il file e controlla se esiste nella directory
@@ -144,8 +169,7 @@ public class XmlParser {
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		XMLStreamReader reader = factory.createXMLStreamReader(new FileInputStream(this.filename));
 		Node tmp = null;
-		String label = "", weight = "";
-		
+		String label = "";
 
 		// Ciclo di lettura file (finchè c'è da leggere)
 		while (reader.hasNext()) {
@@ -196,7 +220,7 @@ public class XmlParser {
 
 			}
 		}
-		
+
 		return nodes;
 	}
 }

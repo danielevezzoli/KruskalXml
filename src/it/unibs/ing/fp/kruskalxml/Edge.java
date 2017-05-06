@@ -1,5 +1,17 @@
 package it.unibs.ing.fp.kruskalxml;
 
+/**
+ * 
+ * Classe che modella un edge (o collegamento) tra due nodi di un grafo
+ * 
+ * Implementa l'interfacia Comparable in modo da ordinare gli edge secondo il
+ * peso
+ * 
+ * @author Stefano Poma
+ * @author Daniele Vezzoli
+ * @author Matteo Zanolla
+ *
+ */
 public class Edge implements Comparable<Edge> {
 	private Node startNode;
 	private Node endNode;
@@ -10,8 +22,6 @@ public class Edge implements Comparable<Edge> {
 		endNode = _endNode;
 		weight = _weight;
 	}
-
-
 
 	// TODO mettere in ordine alfabetico per controolare più facilmente
 	public boolean equals(Edge edge) {
@@ -39,7 +49,7 @@ public class Edge implements Comparable<Edge> {
 	public Node getEndNode() {
 		return endNode;
 	}
-	
+
 	public int getWeight() {
 		return weight;
 	}

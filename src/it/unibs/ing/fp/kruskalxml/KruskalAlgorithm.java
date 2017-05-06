@@ -3,13 +3,26 @@ package it.unibs.ing.fp.kruskalxml;
 import java.util.PriorityQueue;
 import java.util.Vector;
 
+/**
+ * Classe statica per l'esecuzione dell'algoritmo di Kruskal
+ * 
+ * @author Stefano Poma
+ * @author Daniele Vezzoli
+ * @author Matteo Zanolla
+ *
+ */
 public class KruskalAlgorithm {
-	
+
 	/**
-	 * Inizializza i gruppi mettendo in ogni gruppo un nodo
-	 * Es. gruppo0 -> A; gruppo1 -> B
-	 * @param nodes Tutti i nodi del grafo
-	 * @param groups I gruppi da inizializzare
+	 * Inizializza i gruppi mettendo in ogni gruppo un nodo Es. gruppo0 -> A;
+	 * gruppo1 -> B
+	 * 
+	 * @author Stefano Poma
+	 * 
+	 * @param nodes
+	 *            Tutti i nodi del grafo
+	 * @param groups
+	 *            I gruppi da inizializzare
 	 */
 	private static void initGroups(Vector<Node> nodes, Vector<GroupString> groups) {
 		for (int i = 0; i < nodes.size(); i++) {
@@ -22,8 +35,18 @@ public class KruskalAlgorithm {
 
 		}
 	}
-	
 
+	/**
+	 * Metodo per l'esecuzione dell'algoritmo di Kruskal
+	 * 
+	 * @author Stefano Poma
+	 * @author Matteo Zanolla
+	 * @author Daniele Vezzoli
+	 * 
+	 * @param graph
+	 *            Il grafo su cui eseguire l'algoritmo
+	 * @return Il Vector contenente il MST
+	 */
 	public static Vector<Edge> startAlgorithm(Graph graph) {
 
 		Vector<Node> nodes = new Vector<>(graph.getNodes());
@@ -42,8 +65,10 @@ public class KruskalAlgorithm {
 			Edge currentEdge = edges.poll();
 
 			for (int i = 0; i < groups.size(); i++) {
-				//Trovo i gruppi dove si trovano il nodo di partenza ed il nodo di arrivo dell'edge
-				if (groups.get(i).contain2Set(currentEdge.getStartNode().getLabel(), currentEdge.getEndNode().getLabel()))
+				// Trovo i gruppi dove si trovano il nodo di partenza ed il nodo
+				// di arrivo dell'edge
+				if (groups.get(i).contain2Set(currentEdge.getStartNode().getLabel(),
+						currentEdge.getEndNode().getLabel()))
 					presente = true;
 				if (groups.get(i).contain1Set(currentEdge.getStartNode().getLabel()))
 					indice1 = i;
@@ -58,7 +83,7 @@ public class KruskalAlgorithm {
 			else {
 				System.out.println("non presente quindi lo inserisco");
 				path.add(currentEdge);
-				//Unisco i due gruppi
+				// Unisco i due gruppi
 				groups.get(indice2).addSet(groups.get(indice1).getSet());
 				groups.remove(indice1);
 				for (int i = 0; i < groups.size(); i++) {

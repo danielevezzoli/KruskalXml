@@ -3,6 +3,17 @@ package it.unibs.ing.fp.kruskalxml;
 import java.util.PriorityQueue;
 import java.util.Vector;
 
+/**
+ * Classe Graph, modella un grafo. Al suo interno troviamo un Vector di Nodes ed
+ * una PriorityQueue di edge. La scelta della coda rispetto ad un normale array
+ * sta nel fatto che: 1- E' più efficiente 2- E' sempre ordinata in base al peso
+ * degli Edge e quindi ci sono meno controlli da fare
+ * 
+ * @author Stefano Poma
+ * @author Daniele Vezzoli
+ * @author Matteo Zanolla
+ *
+ */
 public class Graph {
 
 	private Vector<Node> nodes = new Vector<>();
@@ -12,7 +23,8 @@ public class Graph {
 	 * Aggiunge un nodo al Vector nodes se il nodo non è già presente
 	 * 
 	 * @param node
-	 * @return
+	 *            Il nodo da aggiungere
+	 * @return true se il nodo è stato aggiunto, false altrimenti.
 	 */
 	public boolean addNode(Node node) {
 		boolean flag = true;
@@ -36,6 +48,13 @@ public class Graph {
 		return edges;
 	}
 
+	/**
+	 * Aggiunge un edge alla coda edges se l'edge non è già presente
+	 * 
+	 * @param edge
+	 *            l'edge da aggiungere
+	 * @return true se l'edge è stato aggiunto, false altrimenti.
+	 */
 	public boolean addEdge(Edge edge) {
 		boolean flag = false;
 		if (!edges.contains(edge)) {
@@ -57,7 +76,7 @@ public class Graph {
 	 * Restituisce il nodo contrassegnato da id
 	 * 
 	 * @param id
-	 * @return il nodo trovato
+	 * @return Se il nodo è presente ritorna il nodo, altrimenti null
 	 */
 	public Node getNodeById(String id) {
 		Node n = null;

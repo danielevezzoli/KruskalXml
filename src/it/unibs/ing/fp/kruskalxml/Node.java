@@ -2,23 +2,35 @@ package it.unibs.ing.fp.kruskalxml;
 
 import java.util.Vector;
 
+/**
+ * 
+ * Classe che modella un nodo di un grafo. Un oggetto Node ha al suo interno i
+ * nodi al quale è collegato e tramite quali edge.
+ * 
+ * @author Stefano Poma
+ * @author Daniele Vezzoli
+ * @author Matteo Zanolla
+ *
+ */
 public class Node {
 	private int distance;
 
-	// Collegamento al nodo precedente nel percorso minimo individuato dall'algoritmo di Dijkstra.
+	// Collegamento al nodo precedente nel percorso minimo individuato
+	// dall'algoritmo di Dijkstra.
 	private Node previousNode;
 	private String id;
 	private String label;
 	private boolean start = false, end = false;
 	private Vector<Edge> links = new Vector<>();
 	private Vector<Node> linkedNodes = new Vector<>();
-	
+
 	public Node(String label) {
 		this.label = label;
 	}
-	
-	public Node() {}
-	
+
+	public Node() {
+	}
+
 	public Vector<Node> getLinkedNodes() {
 		return linkedNodes;
 	}
@@ -89,7 +101,7 @@ public class Node {
 		for (Edge e : links) {
 			str.append("\n" + e);
 		}
-		for (Node n: linkedNodes) {
+		for (Node n : linkedNodes) {
 			str.append("\n" + n.getLabel());
 		}
 		return str.toString();
